@@ -1,0 +1,214 @@
+{
+  "info": {
+    "_postman_id": "787c8da3-559d-4c3e-8c90-9dfcb65ea92b",
+    "name": "Workbench RBAC API",
+    "description": "Collection of REST API requests for the Workbench Role-Based Access Control Permission Builder system.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Permissions",
+      "item": [
+        {
+          "name": "Get Permission Matrix",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/permissions",
+              "host": ["{{base_url}}"],
+              "path": ["permissions"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["roles"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Role By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/roles/role-admin",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "role-admin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Custom Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Support Agent\",\n  \"description\": \"Handles customer issues and views settings.\",\n  \"permissions\": [\n    \"projects:view\",\n    \"tasks:view\",\n    \"settings:view\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["roles"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Custom Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description for support agents.\",\n  \"permissions\": [\n    \"projects:view\",\n    \"tasks:view\",\n    \"tasks:edit\",\n    \"settings:view\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/roles/{{custom_role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "{{custom_role_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Custom Role",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/roles/{{custom_role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "{{custom_role_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Role to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleId\": \"role-member\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/user-1/roles",
+              "host": ["{{base_url}}"],
+              "path": ["users", "user-1", "roles"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Role from User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/user-1/roles/role-member",
+              "host": ["{{base_url}}"],
+              "path": ["users", "user-1", "roles", "role-member"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Effective Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/user-3/effective-permissions",
+              "host": ["{{base_url}}"],
+              "path": ["users", "user-3", "effective-permissions"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "custom_role_id",
+      "value": "role-insert-uuid-here",
+      "type": "string"
+    }
+  ]
+}
